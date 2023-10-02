@@ -345,6 +345,7 @@
             cmbProduct.Name = "cmbProduct";
             cmbProduct.Size = new Size(151, 28);
             cmbProduct.TabIndex = 3;
+            cmbProduct.SelectedIndexChanged += cmbProduct_SelectedIndexChanged;
             // 
             // label5
             // 

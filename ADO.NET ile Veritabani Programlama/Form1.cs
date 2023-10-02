@@ -91,7 +91,6 @@ namespace ADO.NET_ile_Veritabani_Programlama
 
         private void SeedComboBoxByCategory()
         {
-            cmbCategory.Items.Clear();
             cmbCategory.DataSource = categoryDAL.GetCategories();
             cmbCategory.DisplayMember = "CategoryName";
             cmbCategory.ValueMember = "CategoryID";
@@ -106,16 +105,31 @@ namespace ADO.NET_ile_Veritabani_Programlama
         {
             int categoryId = ((Category)(cmbCategory.SelectedItem)).CategoryID;
 
-            cmbProduct.DataSource = null;
-            cmbProduct.Items.Clear();
+
             cmbProduct.DataSource = productDAL.GetProductsByCategoryID(categoryId);
             cmbProduct.DisplayMember = "ProductName";
             cmbProduct.ValueMember = "ProductID";
         }
 
+        private void GetProductInfo()
+        {
+            int productId = ((Product)(cmbProduct.SelectedItem)).ProductID;
+            Product product = productDAL.GetProductById(productId);
+
+            lblUrunNo.Text = productId.ToString();
+            lblUrunAd.Text = product.ProductName;
+            lblBirimFiyat.Text = product.UnitPrice.ToString();
+            lblStokAdet.Text = product.UnitsInStock.ToString();
+        }
+
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             SeedComboBoxByProduct();
+        }
+
+        private void cmbProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetProductInfo();
         }
     }
 }
